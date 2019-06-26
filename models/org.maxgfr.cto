@@ -37,10 +37,10 @@ participant Bank identified by bankId {
 
 asset BacaIdentity identified by bacaVerificationId {
   o String bacaVerificationId
-  --> Client owner
   o String firstName
   o String lastName
   o String address
+  o String birthDate
   o String verificationDate
 }
 
@@ -49,7 +49,7 @@ transaction ValidateEntityTransaction {
   --> Client client
 }
 
-event validateEvent {
+event ValidateEvent {
   --> BacaIdentity bacaIdentity
   --> Client client
 }
