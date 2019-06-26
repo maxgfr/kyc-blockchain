@@ -18,25 +18,38 @@
 
 namespace org.maxgfr
 
-participant SampleParticipant identified by participantId {
-  o String participantId
+participant Client identified by clientId {
+  o String clientId
+  --> BacaIdentity bacaIdentity optional
+}
+
+participant Government identified by govId {
+  o String govId
+}
+
+participant Employer identified by employerId {
+  o String employerId
+}
+
+participant Bank identified by bankId {
+  o String bankId
+}
+
+asset BacaIdentity identified by bacaVerificationId {
+  o String bacaVerificationId
+  --> Client owner
   o String firstName
   o String lastName
+  o String address
+  o String verificationDate
 }
 
-asset SampleAsset identified by assetId {
-  o String assetId
-  --> SampleParticipant owner
-  o String value
+transaction ValidateEntityTransaction {
+  --> BacaIdentity bacaIdentity
+  --> Client client
 }
 
-transaction SampleTransaction {
-  --> SampleAsset asset
-  o String newValue
-}
-
-event SampleEvent {
-  --> SampleAsset asset
-  o String oldValue
-  o String newValue
+event validateEvent {
+  --> BacaIdentity bacaIdentity
+  --> Client client
 }
