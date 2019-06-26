@@ -21,6 +21,7 @@ namespace org.maxgfr
 participant Client identified by clientId {
   o String clientId
   --> BacaIdentity bacaIdentity optional
+  --> Loan[] listLoan optional
 }
 
 participant Government identified by govId {
@@ -33,6 +34,7 @@ participant Employer identified by employerId {
 
 participant Bank identified by bankId {
   o String bankId
+  o Client[] listClient optional
 }
 
 asset BacaIdentity identified by bacaVerificationId {
@@ -44,9 +46,19 @@ asset BacaIdentity identified by bacaVerificationId {
   o String verificationDate
 }
 
+asset Loan identified by loanId {
+  o String loanId
+}
+
 transaction ValidateEntityTransaction {
   --> BacaIdentity bacaIdentity
   --> Client client
+}
+
+transaction MakeALoanTransaction {
+  --> Bank bank
+  --> Client client
+  --> Loan loan
 }
 
 event ValidateEvent {
